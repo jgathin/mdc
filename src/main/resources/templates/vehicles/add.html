@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<form method="post">
+    <div class="form-group">
+        <label>Alias
+            <input th:field="${vehicle.alias}" class="form-control">
+        </label>
+        <p class="error" th:errors="${vehicle.alias}"></p>
+    </div>
+    <div class="form-group">
+        <label>Color
+            <input th:field="${vehicle.vehicleDetails.color}" class="form-control">
+        </label>
+        <p class="error" th:errors="${vehicle.vehicleDetails.color}"></p>
+    </div>
+    <div>
+        <label>Vehicle Type
+            <select th:field="${vehicle.vehicleDetails.vehicleType}">
+                <option th:each="type : ${types}"
+                        th:value="${type}"
+                        th:text="${type.vehicleType}">
+                </option>
+            </select>
+            <p class="error" th:errors="${vehicle.vehicleDetails.vehicleType}"></p>
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Vehicle Condition
+            <select th:field="${vehicle.vehicleDetails.vehicleCondition}">
+                <option th:each="condition : ${conditions}"
+                        th:value="${condition}"
+                        th:text="${condition.vehicleCondition}"
+                ></option>
+            </select>
+            <p class="error" th:errors="${vehicle.vehicleDetails.vehicleCondition}"></p>
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add" class="btn btn-secondary">
+    </div>
+</form>
+
+</body>
+</html>
