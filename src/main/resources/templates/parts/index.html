@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<!--<h1>Magnolia Inventory</h1>-->
+
+<header th:replace="fragments :: header"></header>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tr th:each="part : ${parts}">
+        <td><a class="header-link" th:href="'/parts/detail?partId=' + ${part.id}" th:text="${part.name}"></a></td>
+    </tr>
+</table>
+
+</body>
+</html>

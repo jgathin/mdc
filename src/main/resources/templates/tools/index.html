@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<!--<h1>Magnolia Inventory</h1>-->
+
+<header th:replace="fragments :: header"></header>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Tool Name</th>
+    </tr>
+    </thead>
+    <tr th:each="tool : ${tools}">
+        <td><a class="header-link" th:href="'/tools/detail?toolId=' + ${tool.id}" th:text="${tool.name}"></a></td>
+    </tr>
+</table>
+
+</body>
+</html>

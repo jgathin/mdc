@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<form method="post">
+    <div class="form-group">
+        <label>Tool Name
+            <input th:field="${tool.name}" class="form-control">
+        </label>
+        <p class="error" th:errors="${tool.name}"></p>
+    </div>
+    <div class="form-group">
+        <label>Description
+            <input th:field="${tool.description}" class="form-control">
+        </label>
+        <p class="error" th:errors="${tool.description}"></p>
+    </div>
+    <div>
+        <label>Type
+            <select th:field="${tool.toolType}">
+                <option th:each="type : ${types}"
+                        th:value="${type}"
+                        th:text="${type.toolType}">
+                </option>
+            </select>
+            <p class="error" th:errors="${tool.toolType}"></p>
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add" class="btn btn-secondary">
+    </div>
+</form>
+
+</body>
+</html>

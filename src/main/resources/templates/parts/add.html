@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<form method="post">
+    <div class="form-group">
+        <label>Name
+            <input th:field="${part.name}" class="form-control">
+        </label>
+        <p class="error" th:errors="${part.name}"></p>
+    </div>
+    <div class="form-group">
+        <label>Description
+            <input th:field="${part.description}" class="form-control">
+        </label>
+        <p class="error" th:errors="${part.description}"></p>
+    </div>
+    <div>
+        <label>Type
+            <select th:field="${part.partType}">
+                <option th:each="type : ${types}"
+                        th:value="${type}"
+                        th:text="${type.partType}">
+                </option>
+            </select>
+            <p class="error" th:errors="${part.partType}"></p>
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add" class="btn btn-secondary">
+    </div>
+</form>
+
+</body>
+</html>

@@ -24,6 +24,39 @@
     </tr>
 </table>
 
+<h3>Tools Currently On Vehicle</h3>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Tool</th>
+        <th>Quantity</th>
+    </tr>
+    </thead>
+    <tr th:each="tool : ${tools}">
+        <td th:text="${tool.key}">Empty</td>
+        <td th:text="${tool.value}">null</td>
+    </tr>
+</table>
+
+<p><a class="header-link" th:href="'/vehicles/add-tool?vehicleId=' + ${vehicle.id}">Add Tools to Vehicle</a> </p>
+
+<h3>Parts Currently On Vehicle</h3>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Part</th>
+        <th>Quantity</th>
+    </tr>
+    </thead>
+    <tr th:each="part : ${parts}">
+        <td th:text="${part.key}">Empty</td>
+        <td th:text="${part.value}">null</td>
+    </tr>
+</table>
+
+<p><a class="header-link" th:href="'/vehicles/add-part?vehicleId=' +${vehicle.id}">Add Parts To Vehicle</a> </p>
+
 
 </body>
 </html>

@@ -7,12 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("tools")
@@ -51,5 +49,39 @@ public class ToolController {
 
     }
 
+    @GetMapping("delete")
+    public String displayDeleteVehicleForm(Model model) {
+        model.addAttribute("title", "Delete Tools");
+        model.addAttribute("tools", toolRepository.findAll());
+        return "tools/delete";
+    }
+
+    @PostMapping("delete")
+    public String processDeleteToolsForm(@RequestParam(required = false) int[] toolIds) {
+
+        if (toolIds !=null) {
+            for (int id : toolIds) {
+                toolRepository.deleteById(id);
+            }
+        }
+
+        return "redirect:";
+    }
+
+    @GetMapping("detail")
+    public String displayToolDetails(@RequestParam Integer toolId, Model model) {
+
+        Optional<Tool> result = toolRepository.findById(toolId);
+
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Invalid Tool ID: " + toolId);
+        } else {
+            Tool tool = result.get();
+            model.addAttribute("title", tool.getName() + " Details");
+            model.addAttribute("tool", tool);
+        }
+
+        return "tools/detail";
+    }
 
 }

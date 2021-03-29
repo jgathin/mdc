@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<form method="post">
+    <div class="form-group">
+        <input type="hidden" th:field="${vehiclePart.vehicle}">
+        <select th:field="${vehiclePart.part}">
+            <option th:each="part : ${parts}"
+                    th:value="${part.id}"
+                    th:text="${part.name}"
+            ></option>
+        </select>
+    </div>
+    <input type="submit" class="btn btn-success" value="Add Part">
+</form>
+
+</body>
+</html>

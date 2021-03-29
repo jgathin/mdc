@@ -21,14 +21,14 @@ public class Tool extends AbstractEntity {
     @Size(max = 1000, message = "Description too long!!")
     private String description;
 
-    @Size(max = 500, message = "There are too many parts!!")
-    private int quantity;
+//    @Size(max = 500, message = "There are too many parts!!")
+//    private int quantity;
 
-    public Tool(String name, ToolType toolType, String description, int quantity) {
+    public Tool(String name, ToolType toolType, String description) {
         this.name = name;
         this.toolType = toolType;
         this.description = description;
-        this.quantity = quantity;
+//        this.quantity = quantity;
     }
 
     public Tool () {}
@@ -57,11 +57,11 @@ public class Tool extends AbstractEntity {
         this.description = description;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
+//    public int getQuantity() {
+//        return quantity;
+//    }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+//    public void setQuantity(int quantity) {
+//        this.quantity = quantity;
+//    }
 }
