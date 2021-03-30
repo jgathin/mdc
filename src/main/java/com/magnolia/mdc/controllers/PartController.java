@@ -27,7 +27,7 @@ public class PartController {
     @GetMapping
     public String displayParts(Model model) {
 
-        Vehicle vehicles = (Vehicle) vehicleRepository.findAll();
+//        Vehicle vehicles = (Vehicle) vehicleRepository.findAll();
 
 
         model.addAttribute("title", "All Parts");

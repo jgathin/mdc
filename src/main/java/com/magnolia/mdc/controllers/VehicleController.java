@@ -106,10 +106,13 @@ public class VehicleController {
     @GetMapping("add-tool")
     public String displayAddToolForm(@RequestParam Integer vehicleId, Model model) {
 
+        Integer quantity = null;
+
         Optional<Vehicle> result = vehicleRepository.findById(vehicleId);
         Vehicle vehicle = result.get();
         model.addAttribute("title", "Add Tool to: " + vehicle.getAlias());
         model.addAttribute("tools", toolRepository.findAll());
+        model.addAttribute("quantity", quantity);
         VehicleToolDTO vehicleTool = new VehicleToolDTO();
         vehicleTool.setVehicle(vehicle);
         model.addAttribute("vehicleTool", vehicleTool);
@@ -120,10 +123,12 @@ public class VehicleController {
     @GetMapping("add-part")
     public String displayAddPartForm(@RequestParam Integer vehicleId, Model model) {
 
+        Integer quantity = null;
         Optional<Vehicle> result = vehicleRepository.findById(vehicleId);
         Vehicle vehicle = result.get();
         model.addAttribute("title", "Add Part to: " + vehicle.getAlias());
         model.addAttribute("parts", partRepository.findAll());
+        model.addAttribute("quantity", quantity);
         VehiclePartDTO vehiclePart = new VehiclePartDTO();
         vehiclePart.setVehicle(vehicle);
         model.addAttribute("vehiclePart", vehiclePart);
@@ -132,16 +137,17 @@ public class VehicleController {
     }
 
     @PostMapping("add-tool")
-    public String processAddToolForm(@ModelAttribute @Valid VehicleToolDTO vehicleTool, Errors errors, Model model) {
+    public String processAddToolForm(@ModelAttribute @Valid VehicleToolDTO vehicleTool, Errors errors,
+                                     Model model, Integer quantity) {
 
         if (!errors.hasErrors()) {
             Vehicle vehicle = vehicleTool.getVehicle();
             Tool tool = vehicleTool.getTool();
             if (!vehicle.getVehicleToolMap().containsKey(tool.getName())) {
-                vehicle.addVehicleTool(tool.getName());
+                vehicle.addVehicleTool(tool.getName(), quantity);
                 vehicleRepository.save(vehicle);
             } else if (vehicle.getVehicleToolMap().containsKey(tool.getName())) {
-                vehicle.setVehicleTool(tool.getName(), 1);
+                vehicle.setVehicleTool(tool.getName(), quantity);
                 vehicleRepository.save(vehicle);
             }
 
@@ -155,17 +161,18 @@ public class VehicleController {
 
 
     @PostMapping("add-part")
-    public String processAddPartForm(@ModelAttribute @Valid VehiclePartDTO vehiclePart, Errors errors, Model model) {
+    public String processAddPartForm(@ModelAttribute @Valid VehiclePartDTO vehiclePart, Errors errors,
+                                     Model model, Integer quantity) {
 
         if (!errors.hasErrors()) {
             Vehicle vehicle = vehiclePart.getVehicle();
             Part part = vehiclePart.getPart();
 
             if (!vehicle.getVehiclePartMap().containsKey(part.getName())) {
-                vehicle.addVehiclePart(part.getName());
+                vehicle.addVehiclePart(part.getName(), quantity);
                 vehicleRepository.save(vehicle);
             } else if (vehicle.getVehiclePartMap().containsKey(part.getName())) {
-                vehicle.setVehiclePart(part.getName(), 1);
+                vehicle.setVehiclePart(part.getName(), quantity);
                 vehicleRepository.save(vehicle);
             }
 

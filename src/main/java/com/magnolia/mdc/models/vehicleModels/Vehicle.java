@@ -2,6 +2,7 @@ package com.magnolia.mdc.models.vehicleModels;
 
 
 import com.magnolia.mdc.models.AbstractEntity;
+import com.mysql.cj.NoSubInterceptorWrapper;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -78,16 +79,16 @@ public class Vehicle extends AbstractEntity {
 
 }
 
-    public void addVehicleTool(String toolName) {
-        this.vehicleToolMap.put(toolName, 1);
+    public void addVehicleTool(String toolName, Integer x) {
+        this.vehicleToolMap.put(toolName, x);
     }
 
     public void setVehicleTool(String toolName, Integer x) {
         this.vehicleToolMap.put(toolName, vehicleToolMap.get(toolName) + x);
     }
 
-    public void addVehiclePart(String partName) {
-        this.vehiclePartMap.put(partName, 1);
+    public void addVehiclePart(String partName, Integer x) {
+        this.vehiclePartMap.put(partName, x);
     }
 
     public void setVehiclePart(String partName, Integer x) {
