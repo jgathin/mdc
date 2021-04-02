@@ -11,6 +11,7 @@ import com.magnolia.mdc.models.vehicleModels.Vehicle;
 import com.magnolia.mdc.models.vehicleModels.VehicleCondition;
 import com.magnolia.mdc.models.vehicleModels.VehicleType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -180,5 +181,31 @@ public class VehicleController {
         }
         return "redirect:add-part";
     }
+
+    @GetMapping("edit-tool-list")
+    public String displayEditToolListForm(@RequestParam Integer vehicleId, Model model) {
+
+        Integer quantity = null;
+
+        Optional<Vehicle> result = vehicleRepository.findById(vehicleId);
+        Vehicle vehicle = result.get();
+        model.addAttribute("title", "Add Tool to: " + vehicle.getAlias());
+        model.addAttribute("tools", toolRepository.findAll());
+        model.addAttribute("quantity", quantity);
+        VehicleToolDTO vehicleTool = new VehicleToolDTO();
+        vehicleTool.setVehicle(vehicle);
+        model.addAttribute("vehicleTool", vehicleTool);
+
+        return "edit-tool-list";
+    }
+
+    @PostMapping("edit-tool-list")
+    public String renderEditToolListForm(@ModelAttribute VehicleToolDTO vehicleTool, Model model,
+                                         Integer number) {
+
+
+    }
+
+
 
 }

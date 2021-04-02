@@ -17,15 +17,20 @@
 <form method="post">
     <div class="form-group">
         <input type="hidden" th:field="${vehicleTool.vehicle}">
-        <select th:field="${vehicleTool.tool}">
-            <option th:each="tool : ${tools}"
-                    th:value="${tool.id}"
-                    th:text="${tool.name}"
-                    ></option>
-        </select>
-        <label>Quantity
-            <input type="number" id="quantity" min="1" max="100" name="quantity">
-        </label>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Tool</th>
+                <th>Quantity</th>
+                <th>Subtract</th>
+            </tr>
+            </thead>
+            <tr th:each="tool : ${tools}">
+                <td th:text="${tool.key}">Empty</td>
+                <td th:text="${tool.value}">null</td>
+                <td><input type="number" id="'${tool.key}'+ number" min="1" max="100" name="number"></td>
+            </tr>
+        </table>
     </div>
     <input type="submit" class="btn btn-success" value="Add Tool">
 </form>

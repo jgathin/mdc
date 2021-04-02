@@ -3,8 +3,14 @@
 <head th:replace="fragments :: head"></head>
 <body class="container">
 
-<header th:replace="fragments :: header"></header>
-
+<!--<header th:replace="fragments :: header"></header>-->
+<header>
+    <h1><img src="https://www.adamreed.net/wp-content/uploads/2020/09/MagnoliaBB_Logo.jpg" /></h1>
+    <h2 th:text="${title}"></h2>
+    <ul class="nav" style="float:right;">
+        <li class="nav-item"><a class="nav-link header-link" href="/logout">Log out</a></li>
+    </ul>
+</header>
 <table class="table table-striped">
     <tr>
         <th>ID</th>
@@ -24,6 +30,8 @@
     </tr>
 </table>
 
+</br>
+
 <h3>Tools Currently On Vehicle</h3>
 <table class="table table-striped">
     <thead>
@@ -39,6 +47,8 @@
 </table>
 
 <p><a class="header-link" th:href="'/vehicles/add-tool?vehicleId=' + ${vehicle.id}">Add Tools to Vehicle</a> </p>
+
+</br>
 
 <h3>Parts Currently On Vehicle</h3>
 

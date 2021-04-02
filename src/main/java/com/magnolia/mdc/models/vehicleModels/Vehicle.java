@@ -2,6 +2,7 @@ package com.magnolia.mdc.models.vehicleModels;
 
 
 import com.magnolia.mdc.models.AbstractEntity;
+import com.magnolia.mdc.models.User;
 import com.mysql.cj.NoSubInterceptorWrapper;
 
 import javax.persistence.*;
@@ -22,6 +23,9 @@ public class Vehicle extends AbstractEntity {
     @Valid
     @NotNull
     private VehicleDetails vehicleDetails;
+
+
+
 
     @ElementCollection
     @CollectionTable(name = "vehicle_tool_mapping",
@@ -93,6 +97,10 @@ public class Vehicle extends AbstractEntity {
 
     public void setVehiclePart(String partName, Integer x) {
         this.vehiclePartMap.put(partName, vehiclePartMap.get(partName) + x);
+    }
+
+    public void editVehicleTool(String toolName, Integer x) {
+        this.vehicleToolMap.put(toolName, vehicleToolMap.get(toolName) - x);
     }
 
 }
