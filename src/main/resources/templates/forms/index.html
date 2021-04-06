@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <title>MDC Inventory</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/styles.css}">
+
+</head>
+<body class="container">
+
+<header>
+
+    <h1><img src="https://www.adamreed.net/wp-content/uploads/2020/09/MagnoliaBB_Logo.jpg" /></h1>
+    <h2 th:text="${title}"></h2>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link header-link" href="/forms/add">Add MDC Form</a></li>
+
+        <li class="nav-item"><a class="nav-link header-link" href="/vehicles">Back to Vehicles</a></li>
+    </ul>
+    <ul class="nav" style="float:right;">
+        <li class="nav-item"><a class="nav-link header-link" href="/logout">Log out</a></li>
+    </ul>
+
+</header>
+
+</br>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Forms</th>
+    </tr>
+    </thead>
+    <tr th:each="form : ${forms}">
+        <td><a class="header-link" th:href="'/forms/detail?postMDCFormId=' + ${form.id}" th:text="${form.invoiceNumber}"></a></td>
+    </tr>
+</table>
+
+</body>
+</html>

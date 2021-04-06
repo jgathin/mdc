@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header>
+    <h1><img src="https://www.adamreed.net/wp-content/uploads/2020/09/MagnoliaBB_Logo.jpg" /></h1>
+    <h2 th:text="${title}"></h2>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link header-link" href="/forms/add">Add MDC Form</a></li>
+        <li class="nav-item"><a class="nav-link header-link" href="/forms/index">Post MDC Forms</a></li>
+        <li class="nav-item"><a class="nav-link header-link" href="/vehicles/">Back to Vehicles</a></li>
+    </ul>
+    <ul class="nav" style="float:right;">
+        <li class="nav-item"><a class="nav-link header-link" href="/logout">Log out</a></li>
+    </ul>
+
+</header>
+
+<form method="post" th:action="@{/forms/edit}">
+    <input type="hidden" th:value="${postMDCForm.id}" name="postMDCFormId" />
+    <div class="form-group">
+        <label>Invoice Number
+            <input th:field="${postMDCForm.invoiceNumber}" th:value="${postMDCForm.invoiceNumber}" class="form-control">
+        </label>
+        <p class="error" th:errors="${postMDCForm.invoiceNumber}"></p>
+    </div>
+    <div class="form-group">
+        <label>Installer 1
+            <input th:field="${postMDCForm.installer1}" th:value="${postMDCForm.installer1}" class="form-control">
+        </label>
+        <p class="error" th:errors="${postMDCForm.installer1}"></p>
+    </div>
+    <div class="form-group">
+        <label>Installer 2
+            <input th:field="${postMDCForm.installer2}" th:value="${postMDCForm.installer2}" class="form-control">
+        </label>
+        <p class="error" th:errors="${postMDCForm.installer2}"></p>
+    </div>
+    <div class="form-group">
+        <label>Programmer
+            <input th:field="${postMDCForm.programmer}" th:value="${postMDCForm.programmer}" class="form-control">
+        </label>
+        <!--        <p class="error" th:errors="${postMDCForm.programmer}"></p>-->
+    </div>
+    <div class="form-group">
+        <label>System Designer
+            <input th:field="${postMDCForm.systemDesigner}" th:value="${postMDCForm.systemDesigner}" class="form-control">
+        </label>
+        <p class="error" th:errors="${postMDCForm.systemDesigner}"></p>
+    </div>
+    <div class="form-group">
+        <label>Speaker Wire Used (In Feet)
+            <input type="number" th:field="${postMDCForm.speakerWireUsed}" min="0" max="1000" class="form-control" name="In Feet" th:value = "${postMDCForm.speakerWireUsed}">
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Category-6 Wire Used (In Feet)
+            <input type="number" th:field="${postMDCForm.catWireUsed}" min="0" max="1000" class="form-control" name="In Feet" th:value = "${postMDCForm.catWireUsed}">
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Coaxial Wire Used (In Feet)
+            <input type="number" th:field="${postMDCForm.coaxWireUsed}" min="0" max="1000" class="form-control" name="In Feet" th:value = "${postMDCForm.coaxWireUsed}">
+        </label>
+    </div>
+    <div class="form-group">
+        <label>CParts Used
+            <textarea th:field="${postMDCForm.cPartsUsed}" th:value="${postMDCForm.cPartsUsed}" class="form-control"/>
+        </label>
+        <p class="error" th:errors="${postMDCForm.cPartsUsed}"></p>
+    </div>
+    <div class="form-group">
+        <label>Networking Information
+            <textarea th:field="${postMDCForm.networkInfo}" th:value="${postMDCForm.networkInfo}" class="form-control"/>
+        </label>
+        <p class="error" th:errors="${postMDCForm.networkInfo}"></p>
+    </div>
+    <div class="form-group">
+        <label>Room(s) Summary
+            <textarea th:field="${postMDCForm.roomSummary}" th:value="${postMDCForm.roomSummary}" class="form-control"/>
+        </label>
+        <p class="error" th:errors="${postMDCForm.roomSummary}"></p>
+    </div>
+    <div class="form-group">
+        <label>Control Programming Summary
+            <textarea th:field="${postMDCForm.controlSummary}" th:value="${postMDCForm.controlSummary}" class="form-control"/>
+        </label>
+        <p class="error" th:errors="${postMDCForm.controlSummary}"></p>
+    </div>
+    <div class="form-group">
+        <label>Follow Up Summary
+            <textarea th:field="${postMDCForm.followUpSummary}" th:value="${postMDCForm.followUpSummary}" class="form-control"/>
+        </label>
+        <p class="error" th:errors="${postMDCForm.followUpSummary}"></p>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-secondary">
+    </div>
+</form>
+
+</body>
+</html>

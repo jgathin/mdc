@@ -1,5 +1,7 @@
 package com.magnolia.mdc.models.dto;
 
+import com.magnolia.mdc.models.User;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,6 +18,7 @@ public class LoginFormDTO {
     @Size(min = 8, max = 30, message = "Invalid password. Must be between 5 and 30 characters.")
     private String password;
 
+
     public String getUsername() {
         return username;
     }
@@ -31,4 +34,7 @@ public class LoginFormDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }
+

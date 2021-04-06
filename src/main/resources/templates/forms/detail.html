@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header>
+    <h1><img src="https://www.adamreed.net/wp-content/uploads/2020/09/MagnoliaBB_Logo.jpg" /></h1>
+    <h2 th:text="${title}"></h2>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link header-link" href="/forms/add">Add MDC Form</a></li>
+        <li class="nav-item"><a class="nav-link header-link" href="/forms/index">Post MDC Forms</a></li>
+        <li class="nav-item"><a class="nav-link header-link" th:href="@{/forms/edit/{id}(id=${postMDCForm.id})}">Edit MDC Form</a></li>
+        <li class="nav-item"><a class="nav-link header-link" href="/vehicles/">Back to Vehicles</a></li>
+
+    </ul>
+    <ul class="nav" style="float:right;">
+        <li class="nav-item"><a class="nav-link header-link" href="/logout">Log out</a></li>
+    </ul>
+
+</header>
+
+<table class="table table-striped">
+    <tr>
+        <th>Invoice Number</th>
+        <td th:text="${postMDCForm.invoiceNumber}"></td>
+    </tr>
+    <tr>
+        <th>Installer 1</th>
+        <td th:text="${postMDCForm.installer1}"></td>
+    </tr>
+    <tr>
+        <th>Installer 2</th>
+        <td th:text="${postMDCForm.installer2}"></td>
+    </tr>
+    <tr>
+        <th>Programmer</th>
+        <td th:text="${postMDCForm.programmer}">No Programmer Used</td>
+    </tr>
+    <tr>
+        <th>System Designer</th>
+        <td th:text="${postMDCForm.systemDesigner}"></td>
+    </tr>
+</table>
+
+</br>
+<h3>Consumable Parts Used</h3>
+<table class="table table-striped">
+    <tr>
+        <th>Speaker Wire Used</th>
+        <td th:text="${postMDCForm.speakerWireUsed} + ' feet of wire used.'"></td>
+    </tr>
+    <tr>
+        <th>Category-6 Wire Used</th>
+        <td th:text="${postMDCForm.catWireUsed} + ' feet of wire used.'"></td>
+    </tr>
+    <tr>
+        <th>Coaxial Wire Used</th>
+        <td th:text="${postMDCForm.coaxWireUsed} + ' feet of wire used.'"></td>
+    </tr>
+    <tr>
+        <th>CParts Used</th>
+        <td th:text="${postMDCForm.cPartsUsed}"></td>
+    </tr>
+</table>
+
+</br>
+
+<h3>Network Info</h3>
+<p th:text="${postMDCForm.networkInfo}">No Networking Setup</p>
+
+</br>
+
+<h3>Room Summary</h3>
+<p th:text="${postMDCForm.roomSummary}"></p>
+
+</br>
+
+<h3>Control Summary</h3>
+<p th:text="${postMDCForm.controlSummary}"></p>
+
+</br>
+
+<h3>Follow Up Summary</h3>
+<p th:text="${postMDCForm.followUpSummary}"></p>
+
+
+</body>
+</html>

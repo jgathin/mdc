@@ -199,12 +199,12 @@ public class VehicleController {
         return "edit-tool-list";
     }
 
-    @PostMapping("edit-tool-list")
-    public String renderEditToolListForm(@ModelAttribute VehicleToolDTO vehicleTool, Model model,
-                                         Integer number) {
-
-
-    }
+//    @PostMapping("edit-tool-list")
+//    public String renderEditToolListForm(@ModelAttribute VehicleToolDTO vehicleTool, Model model,
+//                                         Integer number) {
+//
+//        return
+//    }
 
 
 

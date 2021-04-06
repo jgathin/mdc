@@ -14,6 +14,7 @@ public class User extends AbstractEntity{
     @NotNull
     private String username;
 
+
     @NotNull
     private String pwHash;
 
@@ -28,6 +29,7 @@ public class User extends AbstractEntity{
         this.username = username;
         this.pwHash = encoder.encode(password);
         this.vehicle = vehicle;
+
     }
 
     public String getUsername() {
@@ -45,4 +47,5 @@ public class User extends AbstractEntity{
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
+
 }
