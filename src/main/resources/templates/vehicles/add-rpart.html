@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<!--<header th:replace="fragments :: header"></header>-->
+<header>
+    <h1><img src="https://www.adamreed.net/wp-content/uploads/2020/09/MagnoliaBB_Logo.jpg" /></h1>
+    <h2 th:text="${title}"></h2>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link header-link" th:href="'detail?vehicleId=' + ${vehicleReferencedPart.vehicle.id}">
+            Back to Vehicle
+        </a></li>
+    </ul>
+    <ul class="nav" style="float:right;">
+        <li class="nav-item"><a class="nav-link header-link" href="/logout">Log out</a></li>
+    </ul>
+</header>
+
+</br>
+
+<form method="post">
+    <div class="form-group">
+        <input type="hidden" th:field="${vehicleReferencedPart.vehicle}">
+        <select th:field="${vehicleReferencedPart.referencedPart}">
+            <option th:each="rpart : ${rparts}"
+                    th:value="${rpart.id}"
+                    th:text="${rpart.name} + ' ' + ${rpart.referenceNumber}"
+            ></option>
+        </select>
+    </div>
+    <input type="submit" class="btn btn-success" value="Add Referenced Part">
+</form>
+
+<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+
+</body>
+</html>

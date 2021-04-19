@@ -13,6 +13,8 @@ public class VehicleToolDTO {
     @NotNull
     private Tool tool;
 
+    private int quantity;
+
     public VehicleToolDTO() {}
 
     public Vehicle getVehicle() {
@@ -30,4 +32,13 @@ public class VehicleToolDTO {
     public void setTool(Tool tool) {
         this.tool = tool;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
 }

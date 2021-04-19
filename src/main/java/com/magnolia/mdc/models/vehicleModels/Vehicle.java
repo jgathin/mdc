@@ -2,8 +2,6 @@ package com.magnolia.mdc.models.vehicleModels;
 
 
 import com.magnolia.mdc.models.AbstractEntity;
-import com.magnolia.mdc.models.User;
-import com.mysql.cj.NoSubInterceptorWrapper;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -41,6 +39,13 @@ public class Vehicle extends AbstractEntity {
     @Column(name = "quantity")
     private Map<String, Integer> vehiclePartMap;
 
+    @ElementCollection
+    @CollectionTable(name = "vehicle_ReferencedPart_mapping",
+            joinColumns = {@JoinColumn(name = "vehicle_id", referencedColumnName = "id")})
+    @MapKeyColumn(name = "reference_number")
+    @Column(name = "referencedPart_name")
+    private Map<String, String> vehicleReferencedPartMap;
+
 
     public Vehicle(String alias, VehicleDetails vehicleDetails) {
         this.alias = alias;
@@ -77,11 +82,15 @@ public class Vehicle extends AbstractEntity {
         this.vehiclePartMap = vehiclePartMap;
     }
 
-    public void setVehicleToolMap(Map<String, Integer> vehicleToolMap) {
-        this.vehicleToolMap = vehicleToolMap;
+    public void setVehicleToolMap(Map<String, Integer> vehicleToolMap) { this.vehicleToolMap = vehicleToolMap; }
 
+    public Map<String, String> getVehicleReferencedPartMap() {
+        return vehicleReferencedPartMap;
+    }
 
-}
+    public void setVehicleReferencedPartMap(Map<String, String> vehicleReferencedPartMap) {
+        this.vehicleReferencedPartMap = vehicleReferencedPartMap;
+    }
 
     public void addVehicleTool(String toolName, Integer x) {
         this.vehicleToolMap.put(toolName, x);
@@ -99,8 +108,16 @@ public class Vehicle extends AbstractEntity {
         this.vehiclePartMap.put(partName, vehiclePartMap.get(partName) + x);
     }
 
-    public void editVehicleTool(String toolName, Integer x) {
-        this.vehicleToolMap.put(toolName, vehicleToolMap.get(toolName) - x);
+    public void addVehicleReferencedPart(String referencedPartReferenceNumber, String referencedPartName) {
+        this.vehicleReferencedPartMap.put(referencedPartReferenceNumber, referencedPartName);
+    }
+
+    public void setVehicleReferencedPart(String referencedPartName, String referencedPartReferenceNumber) {
+        this.vehicleReferencedPartMap.put(referencedPartName, vehicleReferencedPartMap.get(referencedPartReferenceNumber));
+    }
+
+    public void editVehicleTool(String toolName) {
+        this.vehicleToolMap.put(toolName, vehicleToolMap.get(toolName));
     }
 
 }

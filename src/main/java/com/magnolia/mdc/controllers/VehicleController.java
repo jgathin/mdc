@@ -1,24 +1,27 @@
 package com.magnolia.mdc.controllers;
 
 import com.magnolia.mdc.data.PartRepository;
+import com.magnolia.mdc.data.ReferencedPartRepository;
 import com.magnolia.mdc.data.ToolRepository;
 import com.magnolia.mdc.data.VehicleRepository;
 import com.magnolia.mdc.models.dto.VehiclePartDTO;
+import com.magnolia.mdc.models.dto.VehicleReferencedPartDTO;
 import com.magnolia.mdc.models.dto.VehicleToolDTO;
 import com.magnolia.mdc.models.partModels.Part;
+import com.magnolia.mdc.models.partModels.ReferencedPart;
 import com.magnolia.mdc.models.toolModels.Tool;
 import com.magnolia.mdc.models.vehicleModels.Vehicle;
 import com.magnolia.mdc.models.vehicleModels.VehicleCondition;
 import com.magnolia.mdc.models.vehicleModels.VehicleType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("vehicles")
@@ -32,6 +35,9 @@ public class VehicleController {
 
     @Autowired
     private PartRepository partRepository;
+
+    @Autowired
+    private ReferencedPartRepository referencedPartRepository;
 
     @GetMapping
     public String displayVehicles(Model model) {
@@ -99,6 +105,7 @@ public class VehicleController {
             model.addAttribute("vehicle", vehicle);
             model.addAttribute("tools", vehicle.getVehicleToolMap());
             model.addAttribute("parts", vehicle.getVehiclePartMap());
+            model.addAttribute("rparts", vehicle.getVehicleReferencedPartMap());
         }
 
         return "vehicles/detail";
@@ -132,6 +139,7 @@ public class VehicleController {
         model.addAttribute("quantity", quantity);
         VehiclePartDTO vehiclePart = new VehiclePartDTO();
         vehiclePart.setVehicle(vehicle);
+
         model.addAttribute("vehiclePart", vehiclePart);
 
         return "vehicles/add-part";
@@ -160,6 +168,56 @@ public class VehicleController {
 
     }
 
+    @GetMapping("add-rpart")
+    public String displayAddReferencedPartForm(@RequestParam Integer vehicleId, Model model) {
+
+        Integer quantity = null;
+        Optional<Vehicle> result = vehicleRepository.findById(vehicleId);
+        Vehicle vehicle = result.get();
+
+        Collection<ReferencedPart> referencedParts = (Collection<ReferencedPart>) referencedPartRepository.findAll();
+
+
+        Collection<ReferencedPart> newReferencedParts;
+        newReferencedParts = null;
+
+        referencedParts.removeIf(part -> vehicle.getVehicleReferencedPartMap().containsKey(part.getReferenceNumber()));
+
+        model.addAttribute("title", "Add Reference Part to: " + vehicle.getAlias());
+        model.addAttribute("rparts", referencedParts);
+        model.addAttribute("quantity", quantity);
+        VehicleReferencedPartDTO vehicleReferencedPart = new VehicleReferencedPartDTO();
+        vehicleReferencedPart.setVehicle(vehicle);
+
+        model.addAttribute("vehicleReferencedPart", vehicleReferencedPart);
+
+        return "vehicles/add-rpart";
+    }
+
+    @PostMapping("add-rpart")
+    public String processAddReferencedPartForm(@ModelAttribute @Valid VehicleReferencedPartDTO vehicleReferencedPart, Errors errors,
+                                     Model model, RedirectAttributes redirAttrs) {
+
+        if (!errors.hasErrors()) {
+            Vehicle vehicle = vehicleReferencedPart.getVehicle();
+            ReferencedPart referencedPart = vehicleReferencedPart.getReferencedPart();
+
+            if (!vehicle.getVehicleReferencedPartMap().containsKey(referencedPart.getReferenceNumber())) {
+                vehicle.addVehicleReferencedPart(referencedPart.getReferenceNumber(),referencedPart.getName());
+                vehicleRepository.save(vehicle);
+
+                return "redirect:detail?vehicleId=" + vehicle.getId();
+            } else  {
+                redirAttrs.addFlashAttribute("error", "Part with reference no: " + referencedPart.getReferenceNumber() +
+                        " is already on the vehicle");
+                return "redirect:add-rpart?vehicleId=" + vehicle.getId();
+
+            }
+
+
+        }
+        return "redirect:add-rpart";
+    }
 
     @PostMapping("add-part")
     public String processAddPartForm(@ModelAttribute @Valid VehiclePartDTO vehiclePart, Errors errors,
@@ -189,22 +247,31 @@ public class VehicleController {
 
         Optional<Vehicle> result = vehicleRepository.findById(vehicleId);
         Vehicle vehicle = result.get();
-        model.addAttribute("title", "Add Tool to: " + vehicle.getAlias());
-        model.addAttribute("tools", toolRepository.findAll());
+        model.addAttribute("title", "Edit Tools On " + vehicle.getAlias());
+        model.addAttribute("tools", vehicle.getVehicleToolMap());
         model.addAttribute("quantity", quantity);
         VehicleToolDTO vehicleTool = new VehicleToolDTO();
         vehicleTool.setVehicle(vehicle);
         model.addAttribute("vehicleTool", vehicleTool);
 
-        return "edit-tool-list";
+        return "vehicles/edit-tool-list";
     }
 
-//    @PostMapping("edit-tool-list")
-//    public String renderEditToolListForm(@ModelAttribute VehicleToolDTO vehicleTool, Model model,
-//                                         Integer number) {
+    @PostMapping("edit-tool-list")
+    public String renderEditToolListForm(@ModelAttribute VehicleToolDTO vehicleTool, Model model) {
+
+        Vehicle vehicle = vehicleTool.getVehicle();
+        HashMap <String, Integer> toolList = (HashMap<String, Integer>) vehicle.getVehicleToolMap();
+
+        for (Map.Entry<String,Integer> entry : toolList.entrySet()) {
 //
-//        return
-//    }
+            vehicle.editVehicleTool(entry.getKey());
+        }
+
+        vehicleRepository.save(vehicle);
+
+        return "redirect:detail?vehicleId=" + vehicle.getId();
+    }
 
 
 

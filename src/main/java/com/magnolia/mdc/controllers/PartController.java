@@ -1,10 +1,11 @@
 package com.magnolia.mdc.controllers;
 
 import com.magnolia.mdc.data.PartRepository;
+import com.magnolia.mdc.data.ReferencedPartRepository;
 import com.magnolia.mdc.data.VehicleRepository;
 import com.magnolia.mdc.models.partModels.Part;
 import com.magnolia.mdc.models.partModels.PartType;
-import com.magnolia.mdc.models.vehicleModels.Vehicle;
+import com.magnolia.mdc.models.partModels.ReferencedPart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,14 +25,18 @@ public class PartController {
     @Autowired
     private PartRepository partRepository;
 
+    @Autowired
+    private ReferencedPartRepository referencedPartRepository;
+
     @GetMapping
-    public String displayParts(Model model) {
+    public String displayAllParts(Model model) {
 
 //        Vehicle vehicles = (Vehicle) vehicleRepository.findAll();
 
 
         model.addAttribute("title", "All Parts");
         model.addAttribute("parts", partRepository.findAll());
+        model.addAttribute("rparts", referencedPartRepository.findAll());
 
         return "parts/index";
     }
@@ -90,6 +95,54 @@ public class PartController {
         }
 
         return "parts/detail";
+    }
+
+    @GetMapping("radd")
+    public String displayAddReferencedPartForm(Model model) {
+        model.addAttribute("title", "Add Referenced Part");
+        model.addAttribute("rpart", new ReferencedPart());
+
+        return "parts/radd";
+    }
+
+    @PostMapping("radd")
+    public String processAddReferencedPartForm(@ModelAttribute @Valid ReferencedPart newReferencedPart, Errors errors, Model model) {
+
+        if(errors.hasErrors()) {
+            model.addAttribute("title", "Add Referenced Part");
+            return "parts/radd";
+        }
+
+        referencedPartRepository.save(newReferencedPart);
+        return "redirect:";
+    }
+
+    @GetMapping("rdetail")
+    public String displayReferencedPartDetails(@RequestParam Integer referencedPartId, Model model) {
+
+        Optional<ReferencedPart> result = referencedPartRepository.findById(referencedPartId);
+
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Invalid Referenced Part ID: " + referencedPartId);
+        } else {
+            ReferencedPart referencedPart = result.get();
+            model.addAttribute("title", referencedPart.getName() + " Details");
+            model.addAttribute("rpart", referencedPart);
+        }
+
+        return "parts/rdetail";
+    }
+
+    @PostMapping("rdelete")
+    public String processDeleteReferencedPartsForm(@RequestParam(required = false) int[] referencedPartIds) {
+
+        if (referencedPartIds != null) {
+            for (int id : referencedPartIds) {
+                referencedPartRepository.deleteById(id);
+            }
+        }
+
+        return "redirect:";
     }
 
 }

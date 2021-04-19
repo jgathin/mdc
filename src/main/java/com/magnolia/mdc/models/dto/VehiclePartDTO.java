@@ -13,6 +13,9 @@ public class VehiclePartDTO {
     @NotNull
     private Part part;
 
+    private int quantity;
+
+
     public VehiclePartDTO() {}
 
     public Vehicle getVehicle() {
@@ -29,5 +32,13 @@ public class VehiclePartDTO {
 
     public void setPart(Part part) {
         this.part = part;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

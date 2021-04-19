@@ -16,7 +16,7 @@
 
 <form method="post">
     <div class="form-group">
-        <input type="hidden" th:field="${vehicleTool.vehicle}">
+        <input type="hidden" th:field="${vehicleTool.tool}">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -25,14 +25,16 @@
                 <th>Subtract</th>
             </tr>
             </thead>
-            <tr th:each="tool : ${tools}">
+            <tr th:each="tool : *{vehicleTool.vehicle.vehicleToolMap}">
                 <td th:text="${tool.key}">Empty</td>
-                <td th:text="${tool.value}">null</td>
-                <td><input type="number" id="'${tool.key}'+ number" min="1" max="100" name="number"></td>
+                <td><input type="number" th:field="*{vehicleTool.vehicle.vehicleToolMap[__${tool.key}__]}" min="0" max="100"></td>
+<!--                <td th:text="${tool.value}">null</td>-->
+<!--                <td><input type="number" th:field="*{vehicleTool.vehicle.vehicleToolMap[__${tool.key}__]}" min="0" max="100" name="number" value="0"></td>-->
+<!--                <input type="hidden" th:id="${tool.key}"/>-->
             </tr>
         </table>
     </div>
-    <input type="submit" class="btn btn-success" value="Add Tool">
+    <input type="submit" class="btn btn-success" value="Edit Tools">
 </form>
 
 </body>

@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<header th:fragment="header">
+<header th:fragment="header" >
 
 <h1><img src="https://www.adamreed.net/wp-content/uploads/2020/09/MagnoliaBB_Logo.jpg" /></h1>
     <h2 th:text="${title}"></h2>
@@ -29,7 +29,8 @@
         <li class="nav-item"><a class="nav-link header-link" href="/parts">Parts</a></li>
         <li class="nav-item"><a class="nav-link header-link" href="/parts/add">Add Parts</a></li>
         <li class="nav-item"><a class="nav-link header-link" href="/parts/delete">Delete Parts</a></li>
-
+        <li class="nav-item"><a class="nav-link header-link" href="/parts/radd">Add Reference Parts</a></li>
+        <li class="nav-item"><a class="nav-link header-link" href="/parts/rdelete">Delete Reference Parts</a></li>
     </ul>
 </header>
 

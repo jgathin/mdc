@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<table class="table table-striped">
+  <tr>
+    <th>ID</th>
+    <td th:text="${rpart.id}"></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td th:text="${rpart.description}"></td>
+  </tr>
+  <tr>
+    <th>Reference Number</th>
+    <td th:text="${rpart.referenceNumber}"></td>
+  </tr>
+</table>
+
+
+</body>
+</html>

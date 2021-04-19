@@ -10,6 +10,8 @@
     <ul class="nav">
         <li class="nav-item"><a class="nav-link header-link" href="/forms/add"> Submit Post MDC Form</a></li>
         <li class="nav-item"><a class="nav-link header-link" href="/forms/index">Post MDC Forms</a></li>
+        <li class="nav-item"><a class="nav-link header-link" th:href="'/vehicles/edit-tool-list?vehicleId=' + ${vehicle.id}">Edit Tools</a></li>
+
     </ul>
     <ul class="nav" style="float:right;">
         <li class="nav-item"><a class="nav-link header-link" href="/logout">Log out</a></li>
@@ -71,6 +73,25 @@
 
 <p><a class="header-link" th:href="'/vehicles/add-part?vehicleId=' +${vehicle.id}">Add Parts To Vehicle</a> </p>
 
+</br>
+
+<h3>Referenced Parts Currently On Vehicle</h3>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Referenced Part</th>
+        <th>Reference Number</th>
+    </tr>
+    </thead>
+    <tr th:each="rpart : ${rparts}">
+        <td th:text="${rpart.value}">Empty</td>
+        <td th:text="${rpart.key}">null</td>
+    </tr>
+</table>
+<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+
+<p><a class="header-link" th:href="'/vehicles/add-rpart?vehicleId=' +${vehicle.id}">Add Referenced Parts To Vehicle</a> </p>
 
 </body>
 </html>

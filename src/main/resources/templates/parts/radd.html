@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<form method="post">
+    <div class="form-group">
+        <label>Name
+            <input th:field="${rpart.name}" class="form-control">
+        </label>
+        <p class="error" th:errors="${rpart.name}"></p>
+    </div>
+    <div class="form-group">
+        <label>Description
+            <input th:field="${rpart.description}" class="form-control">
+        </label>
+        <p class="error" th:errors="${rpart.description}"></p>
+    </div>
+    <div class="form-group">
+        <label>Reference Number
+            <input th:field="${rpart.referenceNumber}" class="form-control">
+        </label>
+        <p class="error" th:errors="${rpart.referenceNumber}"></p>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add" class="btn btn-secondary">
+    </div>
+</form>
+
+</body>
+</html>

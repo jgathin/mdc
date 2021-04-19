@@ -66,31 +66,37 @@
     </div>
     <div class="form-group">
         <label>CParts Used
-            <textarea th:field="${postMDCForm.cPartsUsed}" th:value="${postMDCForm.cPartsUsed}" class="form-control"/>
+            <textarea th:field="${postMDCForm.cPartsUsed}" th:value="${postMDCForm.cPartsUsed}" class="form-control wrapSpace"/>
         </label>
         <p class="error" th:errors="${postMDCForm.cPartsUsed}"></p>
     </div>
     <div class="form-group">
         <label>Networking Information
-            <textarea th:field="${postMDCForm.networkInfo}" th:value="${postMDCForm.networkInfo}" class="form-control"/>
+            <textarea th:field="${postMDCForm.networkInfo}" th:value="${postMDCForm.networkInfo}" class="form-control wrapSpace"/>
         </label>
         <p class="error" th:errors="${postMDCForm.networkInfo}"></p>
     </div>
     <div class="form-group">
         <label>Room(s) Summary
-            <textarea th:field="${postMDCForm.roomSummary}" th:value="${postMDCForm.roomSummary}" class="form-control"/>
+            <textarea th:field="${postMDCForm.roomSummary}"
+                      th:value="${postMDCForm.roomSummary}" class="form-control wrapSpace"
+                      rows="6" cols="80"/>
         </label>
         <p class="error" th:errors="${postMDCForm.roomSummary}"></p>
     </div>
     <div class="form-group">
         <label>Control Programming Summary
-            <textarea th:field="${postMDCForm.controlSummary}" th:value="${postMDCForm.controlSummary}" class="form-control"/>
+            <textarea th:field="${postMDCForm.controlSummary}"
+                      th:value="${postMDCForm.controlSummary}" class="form-control wrapSpace"
+                      rows="6" cols="80"/>
         </label>
         <p class="error" th:errors="${postMDCForm.controlSummary}"></p>
     </div>
     <div class="form-group">
         <label>Follow Up Summary
-            <textarea th:field="${postMDCForm.followUpSummary}" th:value="${postMDCForm.followUpSummary}" class="form-control"/>
+            <textarea th:field="${postMDCForm.followUpSummary}"
+                      th:value="${postMDCForm.followUpSummary}" class="form-control wrapSpace"
+                      rows="6" cols="80"/>
         </label>
         <p class="error" th:errors="${postMDCForm.followUpSummary}"></p>
     </div>
